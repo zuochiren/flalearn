@@ -1,4 +1,4 @@
-flalearn ——《Flask web 开发》实践
+flalearn（learn _ flask） ——《Flask web 开发》实践
 =====
 chapter 6
 -----
