@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from flask_pagedown.fields import PageDownField
 from wtforms import StringField, SubmitField, TextAreaField, SelectField, \
 	BooleanField, ValidationError
@@ -6,19 +6,19 @@ from wtforms.validators import Required, Length, Email, Regexp
 from ..models import Role, User
 
 
-class NameForm(Form):
+class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[Required()])
     submit = SubmitField('Submit')
 	
 	
-class EditProfileForm(Form):
+class EditProfileForm(FlaskForm):
 	name = StringField('Real name', validators = [Length(0, 64)])
 	location = StringField('Location', validators = [Length(0, 64)])
 	about_me = TextAreaField('About me')
 	submit = SubmitField('Submit')
 	
 	
-class EditProfileAdminForm(Form):
+class EditProfileAdminForm(FlaskForm):
 	email = StringField('Email', validators = [Required(), Length(1, 64),
 											   Email()])
 	username = StringField('Username', validators = [
@@ -33,7 +33,7 @@ class EditProfileAdminForm(Form):
 	submit = SubmitField('Submit')
 	
 	def __init__(self, user, *args, **kwargs):
-		super(EditProfileAdminForm, self).__init__(*args, **kwargs)
+		super(EditProfileAdminFlaskForm, self).__init__(*args, **kwargs)
 		self.role.choices = [(role.id, role.name)
 							 for role in Role.query.order_by(Role.name).all()]
 		self.user = user
@@ -49,6 +49,6 @@ class EditProfileAdminForm(Form):
 			raise ValidationError('Username has been in use.')
 			
 			
-class PostForm(Form):
+class PostForm(FlaskForm):
 	body = PageDownField("what's on your mind?", validators = [Required()])
 	submit = SubmitField('Submit')
