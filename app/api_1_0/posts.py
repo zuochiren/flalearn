@@ -8,7 +8,7 @@ from .errors import forbidden
 
 
 @api.route('/posts/')
-@login_required
+#@login_required
 def get_posts():
 	page = request.args.get('page', 1, type = int)
 	pagination = Post.query.paginate(
@@ -30,7 +30,7 @@ def get_posts():
 	
 	
 @api.route('/posts/<int:id>')
-@login_required
+#@login_required
 def get_post(id):
 	post = Post.query.get_or_404(id)
 	return jsonify(post.to_json())
